@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <time.h>
 
 #define MAX 100
 
@@ -142,8 +143,13 @@ int main() {
   Posicion portales[MAX];
   int num_portales;
   buscarPortales(laberinto, filas, columnas, portales, &num_portales);
+  clock_t start = clock();
   solucion(entrada.x, entrada.y, laberinto, filas, columnas, matrizVisitados, 0, &mejor_solucion, salida, portales, num_portales);
+  clock_t end = clock();
+  double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+
   printf("Mejor solucion: %d\n", mejor_solucion.mejor_camino);
+  printf("Tiempo de ejecucion: %f segundos\n", time_spent);
   getchar();
   return 0;
 }
