@@ -5,7 +5,7 @@
 #include <time.h>
 
 #define MAX 100
-int contadorPoda = 0;
+
 
 typedef struct {
   int x, y;
@@ -100,8 +100,7 @@ int distanciaPortal(Posicion origen, Posicion portales[MAX], int num_portales, P
 void solucion(int f, int c, char laberinto[MAX][MAX], int filas, int columnas, int matrizVis[MAX][MAX], int contador, SolucionOptima* mejor_solucion, Posicion salida, Posicion portales[MAX], int num_portales) {
   int distancia_restante = calcular_distancia((Posicion){f, c}, salida);
   int posiblePortal = distanciaPortal((Posicion){f, c}, portales, num_portales, salida);
-  if ((contador - posiblePortal >= mejor_solucion->mejor_camino || distancia_restante - 8 > mejor_solucion->mejor_camino) && mejor_solucion->mejor_camino != - 1) {
-    contadorPoda++;
+  if ((contador - posiblePortal >= mejor_solucion->mejor_camino || contador > mejor_solucion->mejor_camino) && mejor_solucion->mejor_camino != - 1) {
     return;
   }
   if (laberinto[f][c] == 'S') {
@@ -152,7 +151,6 @@ int main() {
 
   printf("Mejor solucion: %d\n", mejor_solucion.mejor_camino);
   printf("Tiempo de ejecucion: %f segundos\n", time_spent);
-  printf("Contador: %d\n", contadorPoda);
   getchar();
   return 0;
 }
